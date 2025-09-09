@@ -11,8 +11,7 @@ public class App {
 
     private static UserMapper userMapper;
 
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         userMapper = context.getBean(UserMapper.class);
 
@@ -44,7 +43,6 @@ public class App {
                 case 3:
                     System.out.print("Enter id to update: ");
                     Long update_id = scanner.nextLong();
-                    Long up
                     updateUser(update_id);
                     break;
                 case 4:
