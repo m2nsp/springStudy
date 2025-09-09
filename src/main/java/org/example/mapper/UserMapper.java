@@ -7,6 +7,6 @@ public interface UserMapper {
     User getUserById(Long id);
     List<User> getAllUsers();
     void addUser(User user);
-    void updateUser(User user);
+    User updateUser(User user);
     void deleteUser(Long id);
 }
