@@ -21,13 +21,9 @@ public class UserDaoImpl implements UserDao {
      * 사용자 목록을 조회한다
      * @return List<User>
      */
+    @Override
     public List<User> getAllUsers() {
-        try{
-            return sqlSession.getMapper(UserMapper.class).getAllUsers();
-        } catch (Exception e){
-            System.out.println("사용자 목록 조회 중 에러 발생 :" + e.getMessage());
-            return null;
-        }
+        return sqlSession.getMapper(UserMapper.class).getAllUsers();
     };
 
     /**
@@ -35,44 +31,55 @@ public class UserDaoImpl implements UserDao {
      * @param id
      * @return
      */
+    @Override
     public User getUserDetail(Long id) {
-        try {
-            return sqlSession.getMapper(UserMapper.class).getUserById(id);
-        } catch (Exception e) {
-            System.out.println("사용자 상세 정보 조회 중 에러 발생 :" + e.getMessage());
-            return null;
-        }
+        return sqlSession.getMapper(UserMapper.class).getUserById(id);
     };
+
+    /**
+     * 새로운 사용자를 추가한다
+     * @param user
+     * @return
+     */
+    @Override
+    public User addUser(User user) {
+        sqlSession.getMapper(UserMapper.class).addUser(user);
+        User newUser = getUserDetail(user.getId());
+        return newUser;
+    }
 
     /**
      * 사용자의 정보를 업데이트 한다
      * @param user
-     * @return
+     * @return User
      */
+    @Override
     public User updateUser(User user) {
-        try {
-            return sqlSession.getMapper(UserMapper.class).updateUser(user);
-        } catch(Exception e) {
-            System.out.println("사용자 업데이트 중 에러 발생 :" + e.getMessage());
-            return null;
-        }
-    };
+        sqlSession.getMapper(UserMapper.class).updateUser(user);
+        User updatedUser = getUserDetail(user.getId());
+        return updatedUser;
+    }
 
     /**
      * 사용자를 삭제한다
      * @param id
      */
-    public String deleteUser(Long id) {
-        try {
-            User user = sqlSession.getMapper(UserMapper.class).getUserById(id);
-            if(user!=null){
-                throw new Exception("USER_NOT_FOUND");
-            }
-            sqlSession.getMapper(UserMapper.class).deleteUser(id);
-            return "SUCCESS";
-        } catch (Exception e) {
-            System.out.println("사용자 삭제 중 에러 발생 :" + e.getMessage());
-            return "FAILURE";
-        }
-    };
+    @Override
+    public void deleteUser(Long id) {
+        sqlSession.getMapper(UserMapper.class).deleteUser(id);
+    }
+
+//    public String deleteUser(Long id) {
+//        try {
+//            User user = sqlSession.getMapper(UserMapper.class).getUserById(id);
+//            if(user!=null){
+//                throw new Exception("USER_NOT_FOUND");
+//            }
+//            sqlSession.getMapper(UserMapper.class).deleteUser(id);
+//            return "SUCCESS";
+//        } catch (Exception e) {
+//            System.out.println("사용자 삭제 중 에러 발생 :" + e.getMessage());
+//            return "FAILURE";
+//        }
+//    };
 }
