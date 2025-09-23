@@ -25,6 +25,7 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:3.2.9.RELEASE" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="practice/web/Web2" />
     </root>
   </artifact>
 </component>
